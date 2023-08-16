@@ -3,32 +3,19 @@
 require "base64"
 require "zlib"
 require "parser/current"
+require_relative "kroki_tag/option_parser"
+require_relative "kroki_tag/error"
 require_relative "kroki_tag/version"
 
 module Jekyll
   module KrokiTag
-    class Error < StandardError; end
-
-    DEFINED_KWORDS = %w[type format alt caption].map(&:to_sym).freeze
-
     module Util
-      class KrokiTagArgumentError < Error; end
-
       #
       # @param [string] args
       # @return [Hash]
       #
       def parse_args(args)
-        opts = Hash[*args.strip.split(/\s+/).each_slice(2).map { |key, val|
-          config = key.downcase.sub(/:$/, "").to_sym
-
-          raise KrokiTagArgumentError.new(config) unless DEFINED_KWORDS.include?(config)
-          [config, val]
-        }.flatten]
-
-        raise KrokiTagArgumentError.new("required arg `type` is missing") unless opts[:type]
-
-        opts
+        OptionParser.parse(args)
       end
 
       #
@@ -93,12 +80,7 @@ module Jekyll
         inner_text = super
 
         u = uri(type: @opts[:type], format: @opts[:format], content: inner_text).to_s
-        img =
-          if @opts[:alt]
-            "<img src=\"#{u}\" alt=\"#{attribute(@opts[:alt])}\">"
-          else
-            "<img src=\"#{u}\">"
-          end
+        img = "<img src=\"#{u}\" alt=\"#{attribute(@opts[:alt])}\">"
 
         caption = "<figcaption>#{attribute(@opts[:caption])}</figcaption>" if @opts[:caption]
 

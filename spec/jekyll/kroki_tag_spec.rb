@@ -12,42 +12,6 @@ describe "Jekyll::KrokiTag::Util" do
     end
   }
 
-  describe "#parse_args" do
-    describe "even number and valid args" do
-      it "return valid Hash object" do
-        assert {
-          @class.new.parse_args("type: plantuml format: svg") == {type: "plantuml", format: "svg"}
-        }
-      end
-    end
-
-    describe "even number and invalid args" do
-      it "first undefined keyword raise error" do
-        e = assert_raises(Jekyll::KrokiTag::Util::KrokiTagArgumentError) {
-          @class.new.parse_args("format: svg diagram: plantuml")
-        }
-        assert { e.message == "diagram" }
-      end
-    end
-
-    describe "odd number args" do
-      it "first undefined keyword raise error" do
-        e = assert_raises(Jekyll::KrokiTag::Util::KrokiTagArgumentError) {
-          @class.new.parse_args("plantuml format: svg")
-        }
-        assert { e.message == "plantuml" }
-      end
-    end
-
-    describe "missing argument `type`" do
-      it {
-        assert_raises(Jekyll::KrokiTag::Util::KrokiTagArgumentError) do
-          @class.new.parse_args("format: svg")
-        end
-      }
-    end
-  end
-
   describe "#uri" do
     describe "valid args" do
       it "return valid URI" do
@@ -59,11 +23,11 @@ describe "Jekyll::KrokiTag::Util" do
 
     describe "invalid args" do
       it "missing keyword" do
-        e = assert_raises(ArgumentError) do
-          @class.new.uri(diagram: "actor User")
+        e = assert_raises(::ArgumentError) do
+          @class.new.uri(content: "actor User")
         end
         assert {
-          e.message == "missing keywords: :type, :format, :content"
+          e.message == "missing keywords: :type, :format"
         }
       end
     end

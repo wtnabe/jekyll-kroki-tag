@@ -1,0 +1,8 @@
+module Jekyll
+  module KrokiTag
+    VERSION: String
+    # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+    class Block
+    end
+  end
+end

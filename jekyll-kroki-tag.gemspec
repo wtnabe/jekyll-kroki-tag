@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = ["wtnabe"]
   spec.email = ["18510+wtnabe@users.noreply.github.com"]
 
-  spec.summary = "add kroki tag for text diagramming."
+  spec.summary = "text-to-diagram power to Jekyll with kroki.io"
   spec.homepage = "https://github.com/wtnabe/jekyll-kroki-tag"
   spec.required_ruby_version = ">= 2.7.0"
 

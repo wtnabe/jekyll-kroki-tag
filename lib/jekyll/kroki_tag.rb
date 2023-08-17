@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "liquid"
 require "base64"
 require "zlib"
 require "parser/current"
@@ -95,6 +96,8 @@ module Jekyll
   end
 end
 
-Jekyll::Hooks.register(:site, :post_read) do |site|
-  Jekyll::KrokiTag::Block.register(site)
+if defined? Jekyll::Hooks
+  Jekyll::Hooks.register(:site, :post_read) do |site|
+    Jekyll::KrokiTag::Block.register(site)
+  end
 end

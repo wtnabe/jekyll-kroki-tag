@@ -1,8 +1,6 @@
-# Jekyll::Kroki::Tag
+# Jekyll::KrokiTag
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/jekyll/kroki/tag`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+A plugin that add feature \`text to diagram\` to Jekyll using [kroki.io](https://kroki.io/) hosting. To experiment with that code, run `bin/console` for an interactive prompt.
 
 ## Installation
 
@@ -16,22 +14,39 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 ## Usage
 
-add to config
+Add to config.
 
 ```yaml
 plugins:
   - jekyll-kroki-tag
 ```
 
-write your content
+Write your content.
 
 ```liquid
-{% kroki type: plantuml %}
+{% kroki type: 'plantuml' %}
 actor User
 usecase "Write great code" as case
 User -> case
 {% endkroki %}
 ```
+
+A Converted HTML as below.
+
+```html
+<figure class="jekyll-kroki" data-kroki-type="plantuml" data-kroki-format="svg">
+  <img src="https://kroki.io/plantuml/svg/eJzjSkwuyS9SCC1OLeIqLU5NTixOVVAKL8osSVVIL0pNLFFIzk9JVVJILFYASXGB1Cno2kE4AHFnE90%3D" alt="">
+</figure>
+```
+
+Now you don't need to convert every test-diagram image into real image file and store it and write its path in Markdown or HTML flle.
+
+### Supported attribute
+
+ * type ( required. PlantUML, Graphviz, Mermaid, ... )
+ * format ( PNG, SVG, and more. default is svg )
+ * alt
+ * caption
 
 ## Development
 

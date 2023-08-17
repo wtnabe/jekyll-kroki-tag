@@ -89,7 +89,6 @@ module Jekyll
         super
 
         @opts = parse_args(text)
-        @opts[:format] ||= "svg"
       end
 
       #

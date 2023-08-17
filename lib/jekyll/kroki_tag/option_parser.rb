@@ -45,10 +45,23 @@ module Jekyll
 
         if valid_options?(opts)
           raise MissingRequiredArgument.new("required arg `type` is missing") unless opts[:type]
-          opts
+          normalize(opts)
         end
       rescue Parser::SyntaxError => e
         raise SyntaxError.new(e)
+      end
+
+      #
+      # @param [Hash] opts
+      # @return [Hash]
+      #
+      def normalize(opts)
+        opts[:format] ||= "svg"
+        [:type, :format].each { |k|
+          opts[k].downcase!
+        }
+
+        opts
       end
 
       #

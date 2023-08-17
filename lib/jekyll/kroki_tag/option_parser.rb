@@ -3,6 +3,8 @@ require "parser/current"
 
 module Jekyll
   module KrokiTag
+    class SyntaxError < Error; end
+
     class ArgumentError < Error; end
 
     class MissingRequiredArgument < Error; end
@@ -45,6 +47,8 @@ module Jekyll
           raise MissingRequiredArgument.new("required arg `type` is missing") unless opts[:type]
           opts
         end
+      rescue Parser::SyntaxError => e
+        raise SyntaxError.new(e)
       end
 
       #

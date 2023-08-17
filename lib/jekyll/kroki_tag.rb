@@ -30,8 +30,8 @@ module Jekyll
       # @param [string] str
       # @return [string]
       #
-      def attribute(str)
-        CGI.escapeHTML(str.sub(/^['"]/, "").sub(/['"]$/, ""))
+      def esc(str)
+        CGI.escapeHTML(str)
       end
 
       #
@@ -80,12 +80,12 @@ module Jekyll
         inner_text = super
 
         u = uri(type: @opts[:type], format: @opts[:format], content: inner_text).to_s
-        img = "<img src=\"#{u}\" alt=\"#{attribute(@opts[:alt])}\">"
+        img = "<img src=\"#{u}\" alt=\"#{esc(@opts[:alt])}\">"
 
-        caption = "<figcaption>#{attribute(@opts[:caption])}</figcaption>" if @opts[:caption]
+        caption = "<figcaption>#{esc(@opts[:caption])}</figcaption>" if @opts[:caption]
 
         <<-EOD.chomp
-  <figure class="jekyll-kroki" data-kroki-type="#{@opts[:type]}" data-kroki-format="#{@opts[:format]}">
+  <figure class="jekyll-kroki" data-kroki-type="#{esc(@opts[:type])}" data-kroki-format="#{esc(@opts[:format])}">
     #{img}
     #{caption}
   </figure>

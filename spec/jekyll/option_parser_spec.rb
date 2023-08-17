@@ -25,6 +25,14 @@ describe Jekyll::KrokiTag::OptionParser do
       }
     end
 
+    describe "invalid ruby syntax" do
+      it {
+        assert_raises(Jekyll::KrokiTag::SyntaxError) do
+          @class.parse("type: 'plantuml' alt: 'alt'")
+        end
+      }
+    end
+
     describe "valid multi items" do
       it {
         assert {

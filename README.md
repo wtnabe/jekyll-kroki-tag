@@ -2,6 +2,21 @@
 
 A plugin that add feature \`text to diagram\` to Jekyll using [kroki.io](https://kroki.io/) hosting. To experiment with that code, run `bin/console` for an interactive prompt.
 
+```
+irb(main)> Liquid::Template.register_tag('kroki', Jekyll::KrokiTag::Block)
+irb(main)> t = Liquid::Template.parse('{% kroki type: "plantuml" %}actor User{% endkroki %}'
+irb(main)> puts t.render
+```
+
+result
+
+```
+  <figure class="jekyll-kroki" data-kroki-type="plantuml" data-kroki-format="svg">
+    <img src="https://kroki.io/plantuml/svg/eJxLTC7JL1IILU4tAgAVLQPZ" alt="">
+
+  </figure>
+```
+
 ## Installation
 
 Install the gem and add to the application's Gemfile by executing:

@@ -41,4 +41,21 @@ describe "Jekyll::KrokiTag::Util" do
       end
     end
   end
+
+  describe "#render_body" do
+    describe "only type and format" do
+      it {
+        assert {
+          @class.new.render_body("actor User", opts: {type: "plantuml", format: "svg"})
+        }
+      }
+    end
+    describe "alt and caption supplied" do
+      it {
+        assert {
+          @class.new.render_body("actor User", opts: {type: "plantuml", format: "svg", alt: "figure1", caption: "fig1. User"})
+        }
+      }
+    end
+  end
 end

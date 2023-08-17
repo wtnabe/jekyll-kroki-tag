@@ -32,7 +32,7 @@ module Jekyll
       # @return [string]
       #
       def esc(str)
-        CGI.escapeHTML(str)
+        CGI.escapeHTML(str.to_s)
       end
 
       #
@@ -50,14 +50,14 @@ module Jekyll
       # @param [Hash] opts
       # @return [String]
       #
-      def render_body(body, opts: @opts)
-        u = uri(type: @opts[:type], format: @opts[:format], content: body).to_s
-        img = "<img src=\"#{u}\" alt=\"#{esc(@opts[:alt])}\">"
+      def render_body(body, opts:)
+        u = uri(type: opts[:type], format: opts[:format], content: body).to_s
+        img = "<img src=\"#{u}\" alt=\"#{esc(opts[:alt])}\">"
 
-        caption = "<figcaption>#{esc(@opts[:caption])}</figcaption>" if @opts[:caption]
+        caption = "<figcaption>#{esc(opts[:caption])}</figcaption>" if opts[:caption]
 
         <<-EOD.chomp
-  <figure class="jekyll-kroki" data-kroki-type="#{esc(@opts[:type])}" data-kroki-format="#{esc(@opts[:format])}">
+  <figure class="jekyll-kroki" data-kroki-type="#{esc(opts[:type])}" data-kroki-format="#{esc(opts[:format])}">
     #{img}
     #{caption}
   </figure>

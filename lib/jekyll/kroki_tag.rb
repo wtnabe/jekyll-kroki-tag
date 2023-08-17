@@ -44,6 +44,25 @@ module Jekyll
       def uri(type:, format:, content:)
         URI.join("https://kroki.io/", [type, format, encode_diagram(content)].map { |e| URI.encode_www_form_component(e) }.join("/"))
       end
+
+      #
+      # @param [string] body
+      # @param [Hash] opts
+      # @return [String]
+      #
+      def render_body(body, opts: @opts)
+        u = uri(type: @opts[:type], format: @opts[:format], content: body).to_s
+        img = "<img src=\"#{u}\" alt=\"#{esc(@opts[:alt])}\">"
+
+        caption = "<figcaption>#{esc(@opts[:caption])}</figcaption>" if @opts[:caption]
+
+        <<-EOD.chomp
+  <figure class="jekyll-kroki" data-kroki-type="#{esc(@opts[:type])}" data-kroki-format="#{esc(@opts[:format])}">
+    #{img}
+    #{caption}
+  </figure>
+        EOD
+      end
     end
 
     class Block < ::Liquid::Block
@@ -80,17 +99,7 @@ module Jekyll
       def render(context)
         inner_text = super
 
-        u = uri(type: @opts[:type], format: @opts[:format], content: inner_text).to_s
-        img = "<img src=\"#{u}\" alt=\"#{esc(@opts[:alt])}\">"
-
-        caption = "<figcaption>#{esc(@opts[:caption])}</figcaption>" if @opts[:caption]
-
-        <<-EOD.chomp
-  <figure class="jekyll-kroki" data-kroki-type="#{esc(@opts[:type])}" data-kroki-format="#{esc(@opts[:format])}">
-    #{img}
-    #{caption}
-  </figure>
-        EOD
+        render_body(inner_text, opts: @opts)
       end
     end
   end

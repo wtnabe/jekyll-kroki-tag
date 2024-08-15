@@ -7,7 +7,7 @@ describe Jekyll::KrokiTag::OptionParser do
 
   describe "#parse" do
     describe "valid as ruby hash syntax" do
-      it 'return hash and default value applied' do
+      it "return hash and default value applied" do
         assert {
           @class.parse("type: 'plantuml'") == {type: "plantuml", format: "svg"}
         }

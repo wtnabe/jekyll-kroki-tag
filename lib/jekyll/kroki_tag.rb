@@ -7,6 +7,9 @@ require "parser/current"
 require_relative "kroki_tag/option_parser"
 require_relative "kroki_tag/error"
 require_relative "kroki_tag/version"
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+  require "uri"
+end
 
 module Jekyll
   module KrokiTag

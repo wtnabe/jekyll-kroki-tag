@@ -35,4 +35,8 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
+
+  if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.3.0")
+    spec.add_dependency "uri"
+  end
 end

@@ -1,1 +1,1 @@
-require_relative "./jekyll-kroki_tag"
+require_relative "jekyll-kroki_tag"

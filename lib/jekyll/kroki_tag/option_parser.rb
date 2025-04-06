@@ -72,11 +72,7 @@ module Jekyll
         opts.all? { |key, val|
           config = key.to_s.downcase.sub(/:$/, "").to_sym # standard:disable Lint/RedundantStringCoercion
 
-          if DEFINED_KWORDS.include?(config)
-            true
-          else
-            raise ArgumentError.new("`#{config}` is not allowed keyword")
-          end
+          DEFINED_KWORDS.include?(config) || raise(ArgumentError.new("`#{config}` is not allowed keyword"))
         }
       end
 

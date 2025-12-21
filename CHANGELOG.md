@@ -1,3 +1,7 @@
+## [0.1.3] 2025-12-21
+
+- add effective RBS
+
 ## [0.1.2] 2025-12-18
 
 - add Ruby 3.4 support

@@ -1,0 +1,128 @@
+module Jekyll
+  module KrokiTag
+    VERSION: String
+
+    module Util
+      # _@param_ `args`
+      def parse_args: (::Array[String] args) -> ::Hash[untyped, untyped]
+
+      # _@param_ `diagram`
+      def encode_diagram: (String diagram) -> String
+
+      # _@param_ `str`
+      def esc: (String str) -> String
+
+      # sord warn - URI wasn't able to be resolved to a constant in this project
+      # _@param_ `type` — - diagram type
+      # 
+      # _@param_ `format` — - imgage ( or document ) format
+      # 
+      # _@param_ `content` — - diagram content
+      def uri: (_type: (Symbol | String), format: (Symbol | String), content: String) -> URI
+
+      # _@param_ `body`
+      # 
+      # _@param_ `opts`
+      def render_body: (String body, opts: ::Hash[untyped, untyped]) -> String
+    end
+
+    class Block < Liquid::Block
+      include Liquid::StandardFilters
+      include Jekyll::KrokiTag::Util
+
+      # sord warn - Jekyll::Site wasn't able to be resolved to a constant in this project
+      # if you want to customize, read from `site.config`
+      # 
+      # _@param_ `site`
+      def self.register: (Jekyll::Site site) -> void
+
+      # _@param_ `tag_name`
+      # 
+      # _@param_ `text`
+      # 
+      # _@param_ `tokens`
+      def initialize: (String tag_name, String text, Object tokens) -> void
+
+      # sord warn - Liquid::Context wasn't able to be resolved to a constant in this project
+      # _@param_ `context`
+      def render: (Liquid::Context context) -> String
+
+      # _@param_ `args`
+      def parse_args: (::Array[String] args) -> ::Hash[untyped, untyped]
+
+      # _@param_ `diagram`
+      def encode_diagram: (String diagram) -> String
+
+      # _@param_ `str`
+      def esc: (String str) -> String
+
+      # sord warn - URI wasn't able to be resolved to a constant in this project
+      # _@param_ `type` — - diagram type
+      # 
+      # _@param_ `format` — - imgage ( or document ) format
+      # 
+      # _@param_ `content` — - diagram content
+      def uri: (_type: (Symbol | String), format: (Symbol | String), content: String) -> URI
+
+      # _@param_ `body`
+      # 
+      # _@param_ `opts`
+      def render_body: (String body, opts: ::Hash[untyped, untyped]) -> String
+    end
+
+    class Error < StandardError
+    end
+
+    class SyntaxError < Jekyll::KrokiTag::Error
+    end
+
+    class ArgumentError < Jekyll::KrokiTag::Error
+    end
+
+    class MissingRequiredArgument < Jekyll::KrokiTag::Error
+    end
+
+    class OptionParser
+      DEFINED_KWORDS: ::Array[Symbol]
+
+      # _@param_ `args`
+      def self.parse: (::Array[String] args) -> ::Hash[untyped, untyped]
+
+      # _@param_ `args`
+      def initialize: (::Array[String] args) -> void
+
+      # _@param_ `args`
+      def parse!: (::Array[String] args) -> ::Hash[untyped, untyped]
+
+      # _@param_ `opts`
+      def normalize: (::Hash[untyped, untyped] opts) -> ::Hash[untyped, untyped]
+
+      # _@param_ `opts`
+      def valid_options?: (::Hash[untyped, untyped] opts) -> bool
+
+      # make sexp into type-type array of array
+      # 
+      # [[:sym, :str], [:sym, :sym], ...]
+      # 
+      # _@param_ `ast_array` — - recursive Sexp Array
+      def node_type: ([Symbol, ::Array[untyped]] ast_array) -> ::Array[[Symbol, Symbol]]
+
+      # make sexp into value-value array of array
+      # 
+      # [[:type, "plantuml"], [:format, "png"], ...]
+      # 
+      # _@param_ `ast_array` — - recursive Sexp Array
+      def node_value: ([Symbol, ::Array[untyped]] ast_array) -> [Symbol, String]
+
+      # _@param_ `ast_array` — - recursive Sexp Array
+      # 
+      # _@param_ `key`
+      def node_attribute: ([Symbol, ::Array[untyped]] ast_array, ?key: Symbol) -> [Symbol, ::Array[(Symbol | String)]]
+
+      # sord warn - Parser::AST::Node wasn't able to be resolved to a constant in this project
+      attr_reader tree: Parser::AST::Node
+
+      attr_reader opts: ::Hash[untyped, untyped]
+    end
+  end
+end

@@ -15,7 +15,7 @@ module Jekyll
   module KrokiTag
     module Util
       #
-      # @param [string] args
+      # @param [Array<String>] args
       # @return [Hash]
       #
       def parse_args(args)
@@ -23,24 +23,24 @@ module Jekyll
       end
 
       #
-      # @param [string] diagram
-      # @return [string]
+      # @param [String] diagram
+      # @return [String]
       #
       def encode_diagram(diagram)
         Base64.urlsafe_encode64(Zlib.deflate(diagram))
       end
 
       #
-      # @param [string] str
-      # @return [string]
+      # @param [String] str
+      # @return [String]
       #
       def esc(str)
         CGI.escapeHTML(str.to_s)
       end
 
       #
-      # @param [Symbol|String] type - diagram type
-      # @param [Symbol|String] format - imgage ( or document ) format
+      # @param [Symbol, String] type - diagram type
+      # @param [Symbol, String] format - imgage ( or document ) format
       # @param [String] content - diagram content
       # @return [URI]
       #
@@ -49,7 +49,7 @@ module Jekyll
       end
 
       #
-      # @param [string] body
+      # @param [String] body
       # @param [Hash] opts
       # @return [String]
       #
@@ -76,7 +76,8 @@ module Jekyll
         #
         # if you want to customize, read from `site.config`
         #
-        # @param [Jekyll:Site] site
+        # @param [Jekyll::Site] site
+        # @return [void]
         #
         def register(site)
           Liquid::Template.register_tag("kroki", self)
@@ -84,8 +85,8 @@ module Jekyll
       end
 
       #
-      # @param [string] tag_name
-      # @param [string] text
+      # @param [String] tag_name
+      # @param [String] text
       # @param [Object] tokens
       #
       def initialize(tag_name, text, tokens)
@@ -96,7 +97,7 @@ module Jekyll
 
       #
       # @param [Liquid::Context] context
-      # @return [string]
+      # @return [String]
       #
       def render(context)
         inner_text = super

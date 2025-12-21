@@ -10,14 +10,15 @@ module Jekyll
     class MissingRequiredArgument < Error; end
 
     class OptionParser
+      # @return [Array<Symbol>]
       DEFINED_KWORDS = %w[type format alt caption].map(&:to_sym).freeze
 
       #
-      # @param [string] args
+      # @param [Array<String>] args
       #
       class << self
         #
-        # @param [string] args
+        # @param [Array<String>] args
         # @return [Hash]
         #
         def parse(args)
@@ -27,15 +28,18 @@ module Jekyll
       end
 
       #
-      # @param [string] args
+      # @param [Array<String>] args
       #
       def initialize(args)
         @opts = parse!(args)
       end
-      attr_reader :tree, :opts
+      # @return [Parser::AST::Node]
+      attr_reader :tree
+      # @return [Hash]
+      attr_reader :opts
 
       #
-      # @param [string] args
+      # @param [Array<String>] args
       # @return [Hash]
       #
       def parse!(args)
@@ -65,7 +69,7 @@ module Jekyll
       end
 
       #
-      # @param [array] opts
+      # @param [Hash] opts
       # @return [true]
       #
       def valid_options?(opts)
@@ -81,6 +85,9 @@ module Jekyll
       #
       # [[:sym, :str], [:sym, :sym], ...]
       #
+      # @param [Array(Symbol, Array)] ast_array - recursive Sexp Array
+      # @return [Array<Array(Symbol, Symbol)>]
+      #
       def node_type(ast_array)
         node_attribute(ast_array, key: :type)
       end
@@ -90,14 +97,17 @@ module Jekyll
       #
       # [[:type, "plantuml"], [:format, "png"], ...]
       #
+      # @param [Array(Symbol, Array)] ast_array - recursive Sexp Array
+      # @return [Array(Symbol, String)]
+      #
       def node_value(ast_array)
         node_attribute(ast_array, key: :value)
       end
 
       #
-      # @param [array] ast_array
-      # @param [Symnol] key
-      # @return [array]
+      # @param [Array(Symbol, Array)] ast_array - recursive Sexp Array
+      # @param [Symbol] key
+      # @return [Array(Symbol, <Symbol, String>)]
       #
       def node_attribute(ast_array, key: :type)
         type, *vals = ast_array

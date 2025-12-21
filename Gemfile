@@ -16,6 +16,7 @@ gem "standard", "~> 1.37"
 
 group :test do
   gem "minitest", "~> 5.0"
+  gem "power_assert", "< 3"
   gem "minitest-power_assert", "~> 0.3.1"
   gem "minitest-reporters", "~> 1.6"
 end

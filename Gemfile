@@ -14,6 +14,12 @@ gem "solargraph", "~> 0.49.0"
 gem "rubocop", "~> 1.62"
 gem "standard", "~> 1.37"
 
+gem "sord"
+
+if Gem::Version.new(RUBY_VERSION) >= Gem::Version.new("3.4")
+  gem "abbrev"
+end
+
 group :test do
   gem "minitest", "~> 5.0"
   gem "power_assert", "< 3"

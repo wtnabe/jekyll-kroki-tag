@@ -21,7 +21,7 @@ require "standard/rake"
 
 namespace :sig do
   desc "generate RBS signatures"
-  task :generate => :concat_codes do
+  task :generate => :concat_codes do # rubocop:disable Style/HashSyntax
     sh "sord --rbs #{rbs_target}"
   end
 
